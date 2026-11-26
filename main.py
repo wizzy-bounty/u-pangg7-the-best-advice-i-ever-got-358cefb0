@@ -1,14 +1,17 @@
 import os
+from pathlib import Path
 
-TEXT = 'When the bank took our truck, my aunt said, "Debt grows in the dark; open every envelope the day it arrives."'
+TEXT = "At my brother's funeral, my father whispered, 'Do not rush the empty chair out of the room; love needs somewhere to sit while it learns the new address.'"
 
 
-def main() -> None:
-    output_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
-    os.makedirs(output_dir, exist_ok=True)
-    target = os.path.join(output_dir, "entry.txt")
-    with open(target, "w", encoding="utf-8", newline="") as entry_file:
-        entry_file.write(TEXT)
+def write_entry():
+    output_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / "entry.txt").write_text(TEXT, encoding="utf-8")
+
+
+def main():
+    write_entry()
 
 
 if __name__ == "__main__":
